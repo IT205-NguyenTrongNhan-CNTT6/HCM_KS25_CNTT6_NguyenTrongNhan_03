@@ -56,12 +56,9 @@ class CourseRegistrationManager:
             self.cour_name = get_validate_input("Nhập vào tên khóa học: ")
             self.tui_fee = get_validate_input("Nhập vào học phí gốc: ","int")
             self.discount = get_validate_input("Nhập vào số tiền giảm giá: ","int")
-            try : 
-                        if self.discount >= self.tui_fee:
-                                print("Phí giảm giá quá mức giới hạn")
-                                return
-            except ValueError:
-                        print("Dữ liệu không hợp lệ")
+            if self.discount >= self.tui_fee:
+                    print("Phí giảm giá quá mức giới hạn")
+                    return
             self.ex_fee = get_validate_input("Nhập vào phụ phí: ","int")
 
             new_course = CourseRegistration(self.id,self.stu_name,self.cour_name,self.tui_fee,self.discount,self.ex_fee)
@@ -88,17 +85,13 @@ class CourseRegistrationManager:
                 if self.id.lower() == regis.id.lower():
                     self.tui_fee = get_validate_input("Cập nhật học phí gốc: ","int")
                     self.discount = get_validate_input("Cập nhật phí giảm giá: ","int")
-                    try : 
-                        if self.discount >= self.tui_fee:
-                                print("Phí giảm giá quá mức giới hạn")
-                                return
-                        return self.discount
-                    except ValueError:
-                        print("Dữ liệu không hợp lệ")
+                    if self.discount >= self.tui_fee:
+                        print("Phí giảm giá quá mức giới hạn")
+                        return
                     self.ex_fee = get_validate_input("Cập nhật phụ phí: ","int")
 
                     regis.tui_fee = self.tui_fee
-                    regis.discont = self.discount
+                    regis.discount = self.discount
                     regis.ex_fee = self.ex_fee
                     regis.calculate_total_fee()
                     regis.classify_fee()
